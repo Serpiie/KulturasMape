@@ -1,10 +1,17 @@
  
     // Map initialization 
-    var map = L.map('map').setView([56.8796, 24.6032], 8);
+    var map = L.map('map').setView([56.8796, 24.6032], 7);
 
-   
+    var myStyle = {
+        "color": "#730909",
+        "weight": 6,
+        "opacity": 1
+    };
+
  
-     L.geoJSON(brs).addTo(map);
+     L.geoJSON(brs, {
+        style: myStyle
+    }).addTo(map);
 
 
     //osm layer
