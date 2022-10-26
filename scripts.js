@@ -1,8 +1,10 @@
-
+ 
     // Map initialization 
     var map = L.map('map').setView([56.8796, 24.6032], 8);
 
-  
+   
+ 
+     L.geoJSON(brs).addTo(map);
 
 
     //osm layer
@@ -20,56 +22,12 @@
         maxZoom: 20,
         ext: 'png'
     });
-    Stamen_Toner.addTo(map)
-
-
-    var wms = L.tileLayer.wms("http://localhost:8080/geoserver/wms", {
-        layers: 'geoapp:admin',
-        format: 'image/png',
-        transparent: true,
-        attribution: "wms test"
-    });
-
-
-    /*==============================================
-                GEOJSON
-    ================================================*/
-    var pointData = L.geoJSON(pointJson).addTo(map)
-    var lineData = L.geoJSON(lineJson).addTo(map)
-    var polygonData = L.geoJSON(polygonJson, {
-        onEachFeature: function (feature, layer) {
-            layer.bindPopup(`<b>Name: </b>` + feature.properties.name)
-        },
-        style: {
-            fillColor: 'red',
-            fillOpacity: 1,
-            color: '#c0c0c0',
-        }
-    }).addTo(map);
+    Stamen_Toner.addTo(map);
 
 
 
-    /*==============================================
-                    LAYER CONTROL
-    ================================================*/
-    var baseMaps = {
-        "OSM": osm,
-        "Water color map": watercolor,
-        'Dark': dark,
-        'Google Street': googleStreets,
-        "Google Satellite": googleSat,
-    };
-    var overlayMaps = {
-        "First Marker": singleMarker,
-        'Second Marker': secondMarker,
-        'Point Data': pointData,
-        'Line Data': lineData,
-        'Polygon Data': polygonData,
-        'wms': wms
-    };
-    // map.removeLayer(singleMarker)
 
-    L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+
 
 
     /*==============================================
@@ -83,6 +41,3 @@
         document.getElementsByClassName('coordinate')[0].innerHTML = 'lat: ' + e.latlng.lat + 'lng: ' + e.latlng.lng;
         console.log('lat: ' + e.latlng.lat, 'lng: ' + e.latlng.lng)
     })
-
-
- 
