@@ -12,8 +12,22 @@
                d > 20.0   ? '#FED976' :
                           '#FFEDA0';
     }
-
-
+    var geojson;
+    // ... our listeners
+    geojson = L.geoJson(brs, {style: style}).addTo(map);
+    
+    function highlightFeature(e) {
+        var layer = e.target;
+    
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+    
+        layer.bringToFront();
+    }
  
   
     function style(feature) {
@@ -70,15 +84,15 @@ function highlightFeature(e) {
     });
 
     layer.bringToFront();
+    info.update(layer.feature);
 }
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
+    info.update();
 }
 
-var geojson;
-// ... our listeners
-geojson = L.geoJson(brs, {style: style}).addTo(map);
+
 
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
@@ -88,7 +102,7 @@ function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        click: zoomToFeature
+        dblclick: zoomToFeature
     });
 }
 
@@ -108,18 +122,10 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h4>Informācija</h4>' +  (props ?
-        '<b>' + props.properties.PLAT_KVKM + '</b><br />' + props.properties.NOSAUKUMS + ''
+        '<b>' + props.properties.PLAT_KVKM + '</b><br />' + props.properties.NOSAUKUMS +  ''
         : 'Nosaki info');
 };
 
 info.addTo(map);
 
-function highlightFeature(e) {
-    
-    //info.update(feature.properties.density);
-}
 
-function resetHighlight(e) {
-   
-    info.update();
-}
