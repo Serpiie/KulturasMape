@@ -142,8 +142,8 @@ info.update = function (props) {
    { var n = props.properties.NOSAUKUMS;
     var bonuss = nosaukums(n);}
     this._div.innerHTML = '<h4>Informācija</h4>' +  (props ?
-        '<b>' + props.properties.PLAT_KVKM + '</b><br />' + props.properties.NOSAUKUMS + 
-        '<b>'+ bonuss +'</b><br />' +
+        '<b>' + props.properties.PLAT_KVKM + '</b><br />' +'<b>'+ props.properties.NOSAUKUMS + '</b><br />'+ 
+        '<b>Šeit atrodas:</b><br>'+ bonuss +'<br />' +
          ''
         : 'Nosaki info');
 };
