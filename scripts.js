@@ -121,10 +121,27 @@ function nosaukums(name)
 {
     var saukums = name;
     var output =  " ";
-    
+    var compareTo;
+    if (saukums.includes("novads"))
+    {
+        compareTo =saukums.slice(0, -3);
+    }
+    else if (saukums.includes("pilsēta"))
+    {
+        
+        compareTo =saukums.slice(0, -9);
+        if (compareTo.slice(-1) =='l')
+        {
+            compareTo = compareTo + 's,';
+        }
+        else
+        {
+            compareTo = compareTo+ ',';
+        }
+    }
      for (let x in loc) {
        
-        if (loc[x].Adrese.includes(saukums.slice(0, -3)))
+        if (loc[x].Adrese.includes(compareTo))
         {
             
             output+=loc[x].ObjektaNosaukums;
