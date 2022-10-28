@@ -3,13 +3,13 @@
     var map = L.map('map').setView([56.8796, 24.6032], 8);
    
     function getColor(d) {
-        return d > 2000.0 ? '#800026' :
-               d > 1000.0  ? '#BD0026' :
-               d > 500.0  ? '#E31A1C' :
-               d > 200.0  ? '#FC4E2A' :
-               d > 100.0   ? '#FD8D3C' :
-               d > 50.0   ? '#FEB24C' :
-               d > 20.0   ? '#FED976' :
+        return d > 2524.0 ? '#800026' :
+               d > 2387.0  ? '#BD0026' :
+               d > 1840.0  ? '#E31A1C' :
+               d > 1031.0  ? '#FC4E2A' :
+               d > 309.0   ? '#FD8D3C' :
+               d > 102.0   ? '#FEB24C' :
+               d > 0.0   ? '#FED976' :
                           '#FFEDA0';
     }
     var geojson;
@@ -22,22 +22,21 @@
         layer.setStyle({
             weight: 5,
             color: '#666',
-            dashArray: '',
+            dashArray: ' ',
             fillOpacity: 0.7
         });
     
         layer.bringToFront();
     }
- 
   
     function style(feature) {
         return {
             fillColor: getColor(feature.properties.PLAT_KVKM),
-            weight: 2,
+            weight: 2.5,
             opacity: 1,
             color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.7
+            dashArray: '1',
+            fillOpacity: 1
         };
     }
     
@@ -77,10 +76,10 @@ function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-        weight: 5,
-        color: '#666',
-        dashArray: '',
-        fillOpacity: 0.7
+        weight: 3.75,
+        color: '#222',
+        dashArray: ' ',
+        fillOpacity: 1
     });
 
     layer.bringToFront();
@@ -102,7 +101,7 @@ function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        dblclick: zoomToFeature
+        click: zoomToFeature
     });
 }
 
@@ -142,8 +141,8 @@ info.update = function (props) {
    { var n = props.properties.NOSAUKUMS;
     var bonuss = nosaukums(n);}
     this._div.innerHTML = '<h4>Informācija</h4>' +  (props ?
-        '<b>' + props.properties.PLAT_KVKM + '</b><br />' +'<b>'+ props.properties.NOSAUKUMS + '</b><br />'+ 
-        '<b>Šeit atrodas:</b><br>'+ bonuss +'<br />' +
+        '<b>' + props.properties.NOSAUKUMS + '</b><br />' + 'Platība: ' + props.properties.PLAT_KVKM + ' kvadrātkilometri' + '</b><br />' +
+        '<b>'+ bonuss +'</b><br />' +
          ''
         : 'Nosaki info');
 };
