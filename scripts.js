@@ -118,11 +118,33 @@ info.onAdd = function (map) {
     this.update();
     return this._div;
 };
-
+function nosaukums(name)
+{
+    var saukums = name;
+    var output =  " ";
+    
+     for (let x in loc) {
+       
+        if (loc[x].Adrese.includes(saukums.slice(0, -3)))
+        {
+            
+            output+=loc[x].ObjektaNosaukums;
+            output+= "<br>";
+        }
+     }
+     
+     return output;
+}
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
+    var bonuss;
+    if (props)
+   { var n = props.properties.NOSAUKUMS;
+    var bonuss = nosaukums(n);}
     this._div.innerHTML = '<h4>Informācija</h4>' +  (props ?
-        '<b>' + props.properties.PLAT_KVKM + '</b><br />' + props.properties.NOSAUKUMS +  ''
+        '<b>' + props.properties.PLAT_KVKM + '</b><br />' + props.properties.NOSAUKUMS + 
+        '<b>'+ bonuss +'</b><br />' +
+         ''
         : 'Nosaki info');
 };
 
